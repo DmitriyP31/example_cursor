@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Массажный салон «Баланс»</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --accent: #c28b5b;
+      --accent-dark: #a8713f;
+      --text: #1e1e24;
+      --muted: #656575;
+      --card-bg: #ffffff;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.15);
+      --radius-xl: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #f7efe7, #f5f5f7 55%, #ececf1);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      gap: 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #ffe8cf, #c28b5b);
+      box-shadow: 0 10px 30px rgba(148, 94, 46, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .logo-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .header-contacts {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      font-size: 14px;
+    }
+
+    .header-phone {
+      font-weight: 600;
+    }
+
+    .header-phone a {
+      color: var(--accent-dark);
+    }
+
+    .header-tag {
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(194, 139, 91, 0.08);
+      color: var(--accent-dark);
+      font-size: 12px;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 32px;
+      margin-bottom: 42px;
+      align-items: center;
+    }
+
+    .hero-main-title {
+      font-size: clamp(32px, 5vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 24px;
+      max-width: 420px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .btn-primary {
+      border: none;
+      cursor: pointer;
+      padding: 11px 22px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 14px;
+      color: #fff;
+      background: linear-gradient(135deg, #c28b5b, #a8713f);
+      box-shadow: 0 16px 35px rgba(148, 94, 46, 0.45);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.14s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 42px rgba(148, 94, 46, 0.55);
+      background: linear-gradient(135deg, #c99464, #b5773b);
+    }
+
+    .btn-secondary {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 94, 46, 0.3);
+      background: rgba(255, 255, 255, 0.45);
+      padding: 8px 16px;
+      font-size: 13px;
+      color: var(--accent-dark);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background 0.14s ease, transform 0.14s ease, box-shadow 0.14s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .hero-note {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .hero-visual {
+      position: relative;
+    }
+
+    .hero-card {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), #f6efe7);
+      border-radius: 32px;
+      padding: 24px 20px 22px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      min-height: 270px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .hero-portrait {
+      width: 88px;
+      height: 108px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: radial-gradient(circle at 30% 10%, #ffe8cf, #c28b5b 70%);
+      position: relative;
+    }
+
+    .hero-portrait-inner {
+      position: absolute;
+      inset: 12px 9px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.6), transparent 55%),
+        linear-gradient(160deg, #f7f0ea, #d6a77b);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+    }
+
+    .master-info {
+      flex: 1;
+    }
+
+    .master-name {
+      font-weight: 600;
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+
+    .master-role {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .master-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 11px;
+    }
+
+    .chip {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 8px 16px rgba(148, 94, 46, 0.18);
+    }
+
+    .hero-card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 18px;
+      font-size: 13px;
+    }
+
+    .hero-card-rating strong {
+      font-size: 16px;
+    }
+
+    .hero-card-pills {
+      display: flex;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .pill {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.02);
+    }
+
+    .hero-card-circle {
+      position: absolute;
+      right: -40px;
+      bottom: -50px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 20% 15%, #ffe8cf, #c28b5b);
+      opacity: 0.32;
+      filter: blur(2px);
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 18px;
+      gap: 12px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 400px;
+    }
+
+    /* Services */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .service-card {
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: var(--radius-xl);
+      padding: 16px 16px 14px;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .service-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .service-name {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .service-length {
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(194, 139, 91, 0.08);
+      color: var(--accent-dark);
+    }
+
+    .service-desc {
+      font-size: 13px;
+      color: var(--muted);
+      min-height: 40px;
+    }
+
+    .service-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 4px;
+      font-size: 13px;
+    }
+
+    .service-price {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .service-note {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    /* Reviews */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .review-card {
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 20px;
+      padding: 14px 14px 12px;
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #f4d5b8, #c28b5b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .review-name {
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .review-meta {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .review-text {
+      color: #3a3a46;
+    }
+
+    .review-rating {
+      margin-top: 4px;
+      font-size: 12px;
+      color: #f4b000;
+    }
+
+    /* Contacts */
+    .contacts {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .contacts-card {
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: var(--radius-xl);
+      padding: 18px 18px 14px;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+    }
+
+    .contacts-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .contacts-label {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .contacts-value {
+      text-align: right;
+      font-weight: 500;
+    }
+
+    .contacts-value a {
+      color: var(--accent-dark);
+    }
+
+    .contacts-tagline {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .contacts-map {
+      background: linear-gradient(145deg, #f3e5d6, #f8f0e7);
+      border-radius: var(--radius-xl);
+      padding: 16px;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.1);
+      border: 1px dashed rgba(148, 94, 46, 0.4);
+      font-size: 13px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .map-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 11px;
+      margin-bottom: 8px;
+    }
+
+    .map-scheme {
+      margin-top: 6px;
+      color: #3b2a1c;
+    }
+
+    .map-circle {
+      position: absolute;
+      right: -30px;
+      bottom: -45px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 20% 20%, #ffe8cf, #c28b5b);
+      opacity: 0.35;
+      filter: blur(1px);
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-top: 1px dashed rgba(148, 94, 46, 0.2);
+      padding-top: 12px;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-visual {
+        order: -1;
+      }
+      .services-grid,
+      .reviews-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .contacts {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header-contacts {
+        align-items: flex-start;
+      }
+      .hero {
+        gap: 20px;
+      }
+      /* крупные кнопки для телефона */
+      .hero-cta {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 20px;
+        font-size: 16px;
+        min-height: 52px;
+      }
+      /* меньше текста на мобильной версии */
+      .hero-subtitle,
+      .hero-badges,
+      .hero-note,
+      .section-subtitle,
+      .service-desc,
+      .contacts-tagline,
+      .contacts-map p,
+      .contacts-map .map-scheme {
+        display: none;
+      }
+      .services-grid,
+      .reviews-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .page {
+        padding-inline: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <div class="logo-mark">B</div>
+        <div class="logo-text">
+          <div class="logo-title">Баланс</div>
+          <div class="logo-subtitle">Студия осознанного массажа</div>
+        </div>
+      </div>
+      <div class="header-contacts">
+        <div class="header-phone">
+          <a href="tel:+79990000000">+7 (999) 000‑00‑00</a>
+        </div>
+        <div class="header-tag">Ежедневно с 10:00 до 21:00</div>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div>
+        <h1 class="hero-main-title">
+          Массаж, который возвращает&nbsp;телу лёгкость и покой
+        </h1>
+        <p class="hero-subtitle">
+          Индивидуальные массажные программы для расслабления, восстановления
+          после нагрузок и заботы о здоровье спины.
+        </p>
+
+        <div class="hero-badges">
+          <span class="badge">Опыт мастера более 7 лет</span>
+          <span class="badge">Тихое пространство без суеты</span>
+          <span class="badge">Премиальные масла и уход</span>
+        </div>
+
+        <div class="hero-cta">
+          <button class="btn-primary" onclick="scrollToContacts()">
+            Записаться на сеанс
+            <span>→</span>
+          </button>
+          <button class="btn-secondary" onclick="scrollToServices()">
+            Смотреть услуги
+          </button>
+        </div>
+
+        <div class="hero-note">
+          Первичная консультация и подбор формата массажа — бесплатно.
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-card-top">
+            <div class="hero-portrait">
+              <div class="hero-portrait-inner"></div>
+            </div>
+            <div class="master-info">
+              <div class="master-name">Анна Крылова</div>
+              <div class="master-role">Сертифицированный массажист, телесный терапевт</div>
+              <div class="master-chips">
+                <span class="chip">классический и лимфодренажный массаж</span>
+                <span class="chip">работа с зажимами и стрессом</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero-card-bottom">
+            <div class="hero-card-rating">
+              <strong>4.97</strong>/5
+              <div class="review-meta">по отзывам постоянных клиентов</div>
+            </div>
+            <div class="hero-card-pills">
+              <span class="pill">уютный кабинет у метро</span>
+              <span class="pill">чай после сеанса</span>
+            </div>
+          </div>
+          <div class="hero-card-circle"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section" id="services">
+      <div class="section-header">
+        <h2 class="section-title">Услуги и программы</h2>
+        <p class="section-subtitle">
+          Подберём формат массажа под ваше состояние: расслабление, восстановление после
+          спорта или мягкая забота о спине и шее.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <article class="service-card">
+          <div class="service-header">
+            <div class="service-name">Расслабляющий массаж всего тела</div>
+            <span class="service-length">60 / 90 минут</span>
+          </div>
+          <div class="service-desc">
+            Мягкая, глубокая проработка мышц, снятие напряжения и усталости.
+            Подходит после напряжённых рабочих дней.
+          </div>
+          <div class="service-bottom">
+            <div class="service-price">от 3 500 ₽</div>
+            <div class="service-note">подбор длительности по самочувствию</div>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <div class="service-header">
+            <div class="service-name">Антистресс &amp; сон</div>
+            <span class="service-length">75 минут</span>
+          </div>
+          <div class="service-desc">
+            Комбинация массажа спины, шеи и головы с дыхательными техниками.
+            Помогает снизить уровень стресса и улучшить качество сна.
+          </div>
+          <div class="service-bottom">
+            <div class="service-price">3 900 ₽</div>
+            <div class="service-note">уменьшение тревожности и зажимов</div>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <div class="service-header">
+            <div class="service-name">Лимфодренажный массаж</div>
+            <span class="service-length">60 минут</span>
+          </div>
+          <div class="service-desc">
+            Работа с отёками, ощущением тяжести в ногах и тела. Улучшает микроциркуляцию,
+            даёт лёгкость и тонус.
+          </div>
+          <div class="service-bottom">
+            <div class="service-price">4 200 ₽</div>
+            <div class="service-note">курс 5–8 сеансов по запросу</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="section" id="reviews">
+      <div class="section-header">
+        <h2 class="section-title">Отзывы гостей салона</h2>
+        <p class="section-subtitle">
+          Мы бережно относимся к каждому запросу — от первого звонка до послевизитного
+          сопровождения.
+        </p>
+      </div>
+
+      <div class="reviews-grid">
+        <article class="review-card">
+          <div class="review-header">
+            <div class="avatar">Е</div>
+            <div>
+              <div class="review-name">Екатерина</div>
+              <div class="review-meta">программа «Антистресс»</div>
+            </div>
+          </div>
+          <p class="review-text">
+            После рабочего марафона это было именно то, что нужно. Ушло напряжение в шее
+            и плечах, сплю гораздо спокойнее. Атмосфера очень тёплая и безопасная.
+          </p>
+          <div class="review-rating">★★★★★</div>
+        </article>
+
+        <article class="review-card">
+          <div class="review-header">
+            <div class="avatar">И</div>
+            <div>
+              <div class="review-name">Иван</div>
+              <div class="review-meta">классический массаж спины</div>
+            </div>
+          </div>
+          <p class="review-text">
+            Занимаюсь в зале, спина постоянно в напряжении. Уже после пары сеансов стало
+            легче тренироваться, ушла скованность в пояснице. Точно вернусь.
+          </p>
+          <div class="review-rating">★★★★★</div>
+        </article>
+
+        <article class="review-card">
+          <div class="review-header">
+            <div class="avatar">М</div>
+            <div>
+              <div class="review-name">Мария</div>
+              <div class="review-meta">лимфодренажный курс</div>
+            </div>
+          </div>
+          <p class="review-text">
+            Очень деликатный подход, всё подробно объяснили. Лёгкость в ногах уже после
+            первого раза, а к концу курса заметно ушли отёки.
+          </p>
+          <div class="review-rating">★★★★★</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Contacts -->
+    <section class="section" id="contacts">
+      <div class="section-header">
+        <h2 class="section-title">Контакты и запись</h2>
+        <p class="section-subtitle">
+          Напишите или позвоните, чтобы подобрать удобное время. Ответим на вопросы и
+          подскажем, какой формат подойдёт именно вам.
+        </p>
+      </div>
+
+      <div class="contacts">
+        <div class="contacts-card">
+          <div class="contacts-row">
+            <div class="contacts-label">Телефон</div>
+            <div class="contacts-value">
+              <a href="tel:+79990000000">+7 (999) 000‑00‑00</a>
+            </div>
+          </div>
+
+          <div class="contacts-row">
+            <div class="contacts-label">WhatsApp / Telegram</div>
+            <div class="contacts-value">
+              <a href="https://wa.me/79990000000" target="_blank" rel="noopener">
+                Написать сообщение
+              </a>
+            </div>
+          </div>
+
+          <div class="contacts-row">
+            <div class="contacts-label">Адрес</div>
+            <div class="contacts-value">
+              г. Москва, ул. Примерная, 10<br />
+              5 минут пешком от м. «Пример»
+            </div>
+          </div>
+
+          <div class="contacts-row">
+            <div class="contacts-label">График работы</div>
+            <div class="contacts-value">
+              Пн–Вс: 10:00–21:00<br />
+              по предварительной записи
+            </div>
+          </div>
+
+          <p class="contacts-tagline">
+            Оставьте заявку в мессенджере, и мы свяжемся с вами в ближайшее время, чтобы
+            подтвердить запись.
+          </p>
+        </div>
+
+        <div class="contacts-map">
+          <div class="map-badge">
+            <span>🗺</span>
+            <span>Как нас найти</span>
+          </div>
+          <p>
+            Кабинет находится в тихом дворе в отдельном входе. На доме табличка
+            «Студия массажа “Баланс”».
+          </p>
+          <p class="map-scheme">
+            От метро «Пример» выход №2, далее прямо 300 м вдоль парка, затем во двор
+            через арку и направо.
+          </p>
+          <div class="map-circle"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span>© 2026 Массажный салон «Баланс»</span>
+      <span>Не является медицинской услугой. При наличии хронических заболеваний необходима консультация врача.</span>
+    </footer>
+  </div>
+
+  <script>
+    function smoothScrollTo(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        window.scrollTo({
+          top: el.offsetTop - 40,
+          behavior: "smooth",
+        });
+      }
+    }
+
+    function scrollToContacts() {
+      smoothScrollTo("contacts");
+    }
+
+    function scrollToServices() {
+      smoothScrollTo("services");
+    }
+  </script>
+</body>
+</html>
